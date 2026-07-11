@@ -12,7 +12,9 @@
 
 ## Checklist
 
-- [ ] `bun run lint` passes
-- [ ] `bun run build` passes  
-- [ ] Follows commit conventions
+- [ ] Follows [commit conventions](agent/commit-conventions.md)
+- [ ] `bun run lint` passes (if applicable)
+- [ ] `bun run build` passes (if applicable)
 - [ ] Docs updated if needed
+- [ ] session-log entry created (required for agent-driven sessions)
+- [ ] [Review protocol](agent/review-protocol.md) completed

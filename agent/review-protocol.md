@@ -1,4 +1,5 @@
 # Review Protocol
+<!-- last_reviewed: 2026-07-11 -->
 
 > Run this checklist before approving or merging any pull request across TylrDn repos.
 

@@ -14,6 +14,7 @@ echo "🔧 dev-kit setup starting..."
 echo ""
 echo "→ Symlinking dotfiles from $DOTFILES_DIR..."
 
+# shellcheck disable=SC2043
 for file in .zshrc; do
   src="$DOTFILES_DIR/$file"
   dest="$HOME/$file"
@@ -69,3 +70,17 @@ fi
 
 echo ""
 echo "✅ Setup complete. Restart your terminal to apply shell changes."
+
+# ── Install git hooks ─────────────────────────────────────────────────────────
+echo ""
+echo "→ Installing git hooks..."
+HOOKS_SRC="$REPO_DIR/git/hooks"
+HOOKS_DEST="$(git -C "$REPO_DIR" rev-parse --git-dir)/hooks"
+
+for hook in "$HOOKS_SRC"/*; do
+  hook_name="$(basename "$hook")"
+  install -m 755 "$hook" "$HOOKS_DEST/$hook_name"
+  echo "  Installed $hook_name"
+done
+
+echo "  Done."

@@ -7,8 +7,9 @@ project's `.github/workflows/` directory — they are not imported automatically
 
 | File | Purpose |
 |------|---------|
-| `lint.yml` | Runs ESLint on push and PR to `main` |
-| `test.yml` | Stub workflow for running tests (update once runner is chosen) |
+| `lint.yml` | Runs ESLint via Bun on push and PR to `main` |
+| `bun-test.yml` | Runs `bun test` on push and PR to `main` |
+| `test.yml` | Stub for npm-based test runners (update once runner is chosen) |
 
 ## Usage
 
@@ -16,7 +17,7 @@ project's `.github/workflows/` directory — they are not imported automatically
 # From the root of your project
 mkdir -p .github/workflows
 cp ~/dev-kit/ci-templates/lint.yml .github/workflows/lint.yml
-cp ~/dev-kit/ci-templates/test.yml .github/workflows/test.yml
+cp ~/dev-kit/ci-templates/bun-test.yml .github/workflows/test.yml
 ```
 
 Then commit and push — GitHub Actions will pick them up automatically.
@@ -35,15 +36,23 @@ Then commit and push — GitHub Actions will pick them up automatically.
   - `linting/.eslintrc.base.js` — JavaScript projects
   - `linting/.eslintrc.typescript.js` — TypeScript projects
 
-### test.yml
+### bun-test.yml
+
+- `package.json` must include a `test` script.
+- Defaults to `bun test` — update the run step if you use Vitest:
+  ```yaml
+  run: bunx vitest run
+  ```
+
+### test.yml (npm fallback)
 
 - `package.json` must include a `test` script pointing to your chosen runner.
-- Update the workflow's test step if you use a runner with a different invocation
-  (e.g., `bunx vitest run` instead of `npm test`).
+- Uses Node 22. Replace `npm ci` / `npm test` with your preferred commands if
+  not using npm.
 
 ## Secrets / Variables
 
-Neither template requires secrets by default. If your test suite needs
+None of these templates require secrets by default. If your test suite needs
 environment variables (e.g., a database URL), add them as
 [GitHub Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 and inject them via `env:` in the relevant step. See

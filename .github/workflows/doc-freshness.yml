@@ -1,0 +1,55 @@
+name: Doc Freshness
+
+on:
+  schedule:
+    # Runs every Monday at 09:00 UTC
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-freshness:
+    name: Flag stale agent docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check last_reviewed dates in agent docs
+        run: |
+          STALE_DAYS=90
+          TODAY=$(date -u +%s)
+          STALE=0
+
+          for FILE in agent/*.md; do
+            # Extract last_reviewed: YYYY-MM-DD from the first 5 lines
+            REVIEWED=$(head -5 "$FILE" | grep -Eo 'last_reviewed: [0-9]{4}-[0-9]{2}-[0-9]{2}' | grep -Eo '[0-9]{4}-[0-9]{2}-[0-9]{2}' || true)
+            if [[ -z "$REVIEWED" ]]; then
+              echo "::warning file=$FILE::No 'last_reviewed' date found in $FILE"
+              STALE=1
+              continue
+            fi
+
+            # Parse date with GNU date; skip the file if parsing fails
+            if ! REVIEWED_TS=$(date -u -d "$REVIEWED" +%s 2>/dev/null); then
+              echo "::warning file=$FILE::Could not parse last_reviewed date '$REVIEWED' in $FILE -- skipping"
+              STALE=1
+              continue
+            fi
+
+            DAYS_OLD=$(( (TODAY - REVIEWED_TS) / 86400 ))
+
+            if [[ "$DAYS_OLD" -gt "$STALE_DAYS" ]]; then
+              echo "::warning file=$FILE::$FILE was last reviewed $DAYS_OLD days ago (on $REVIEWED). Consider reviewing."
+              STALE=1
+            else
+              echo "✓ $FILE — reviewed $DAYS_OLD days ago ($REVIEWED)"
+            fi
+          done
+
+          if [[ "$STALE" -eq 1 ]]; then
+            echo ""
+            echo "One or more agent docs are stale or missing a last_reviewed date."
+            echo "Update the 'last_reviewed:' line in the affected file(s) after reviewing."
+          fi

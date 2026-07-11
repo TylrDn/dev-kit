@@ -1,6 +1,10 @@
 # Agent Init Block
+<!-- last_reviewed: 2026-07-11 -->
 
-> Paste this block at the start of any GitHub Copilot or Codex session to establish consistent context.
+> **This is for starting an agent chat session** — not for setting up a new repo.
+> To bootstrap a new repo, see [`agent/copilot-instructions-template.md`](copilot-instructions-template.md) or run `bootstrap.sh`.
+
+Paste this block at the start of any GitHub Copilot or Codex session to establish consistent context.
 
 ---
 
@@ -18,7 +22,7 @@ Key facts:
 
 Repos in scope:
 - TylrDn/CODE — active — central governance and documentation
-- TylrDn/mobile-forge — planned — React Native / Expo scaffold template
+- TylrDn/mobile-forge — active — React Native / Expo scaffold template
 - TylrDn/dev-kit — active — dotfiles, tooling configs, agent workflow standards
 
 Before making changes:
