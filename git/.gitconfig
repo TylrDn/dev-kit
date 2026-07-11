@@ -1,0 +1,50 @@
+[user]
+  name = Tyler
+  email = YOUR_EMAIL_HERE
+  signingkey = YOUR_GPG_KEY_HERE
+
+[core]
+  editor = cursor --wait
+  autocrlf = input
+  ignorecase = false
+  pager = delta
+  excludesfile = ~/.gitignore_global
+
+[init]
+  defaultBranch = main
+
+[push]
+  default = current
+  autoSetupRemote = true
+
+[pull]
+  rebase = false
+
+[merge]
+  tool = cursor
+
+[diff]
+  tool = cursor
+
+[commit]
+  # gpgsign = true  # Uncomment once GPG key is configured
+
+[alias]
+  st = status
+  co = checkout
+  cb = checkout -b
+  br = branch
+  ci = commit
+  lo = log --oneline --decorate --graph
+  undo = reset --soft HEAD~1
+  amend = commit --amend --no-edit
+  pushf = push --force-with-lease
+
+[delta]
+  navigate = true
+  light = false
+  side-by-side = true
+  line-numbers = true
+
+[interactive]
+  diffFilter = delta --color-only
