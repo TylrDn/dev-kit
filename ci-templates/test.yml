@@ -1,0 +1,36 @@
+# Reusable test workflow template stub.
+# Copy this file into your project's .github/workflows/ directory.
+# Update the test step once a test runner has been chosen for the project
+# (e.g. Vitest, Jest, Bun test). See: https://github.com/TylrDn/dev-kit/issues
+
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Replace this step with the actual test command once a runner is chosen.
+      - name: Run tests
+        run: npm test
