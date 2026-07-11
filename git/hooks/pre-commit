@@ -1,0 +1,5 @@
+#!/bin/sh
+# Pre-commit hook — runs lint-staged
+# Install: cp git/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+npx lint-staged

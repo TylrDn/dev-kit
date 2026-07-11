@@ -1,0 +1,34 @@
+{
+  "recommendations": [
+    // Core
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "prisma.prisma",
+
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // DX
+    "formulahendry.auto-rename-tag",
+    "steoates.autoimport",
+    "christian-kohler.path-intellisense",
+    "mikestead.dotenv",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+
+    // UI
+    "PKief.material-icon-theme",
+    "dracula-theme.theme-dracula",
+    "oderwat.indent-rainbow",
+
+    // React / Next
+    "dsznajder.es7-react-js-snippets",
+    "burkeholland.simple-react-snippets",
+
+    // Markdown / Docs
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint"
+  ]
+}
