@@ -83,5 +83,4 @@ for hook in "$HOOKS_SRC"/*; do
   echo "  Installed $hook_name"
 done
 
-echo ""
-echo "✅ Setup complete. Restart your terminal to apply shell changes."
+echo "  Done."
