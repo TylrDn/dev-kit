@@ -1,0 +1,35 @@
+# Reusable ESLint workflow template.
+# Copy this file into your project's .github/workflows/ directory.
+# Requires: package.json with a "lint" script, and an ESLint config that
+# extends linting/.eslintrc.base.js (or .eslintrc.typescript.js) from dev-kit.
+
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint

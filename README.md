@@ -6,6 +6,7 @@ Personal developer environment, tooling configs, and standards. This repo is the
 
 ```
 dev-kit/
+├── ci-templates/      # Reusable GitHub Actions workflow templates
 ├── dotfiles/          # Shell config, aliases, .zshrc, .gitconfig
 ├── vscode/            # settings.json, extensions list, keybindings
 ├── scripts/           # Bootstrap, install, and utility scripts
@@ -28,5 +29,5 @@ bash scripts/bootstrap.sh
 
 - [Environment Setup](docs/environment-setup.md)
 - [Git Conventions](docs/git-conventions.md)
-- [Secrets Management](docs/secrets-management.md)
+- [Secrets Management](secrets/secrets-pattern.md)
 - [VS Code Setup](docs/vscode-setup.md)
