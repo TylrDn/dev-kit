@@ -1,0 +1,27 @@
+name: PR Title Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions: {}  # No token access needed — only reads PR event metadata via env var
+
+jobs:
+  conventional-commits:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR title format
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          PATTERN='^(feat|fix|chore|docs|refactor|test|ci|style|perf|revert)(\([a-z0-9/_-]+\))?(!)?: .+'
+          if echo "$PR_TITLE" | grep -Eq "$PATTERN"; then
+            echo "✓ PR title follows Conventional Commits: $PR_TITLE"
+          else
+            echo "✗ PR title does not follow Conventional Commits format." >&2
+            echo "  Expected: <type>(scope): description" >&2
+            echo "  Example:  feat(scripts): add nvm install to bootstrap" >&2
+            echo "  Got:      $PR_TITLE" >&2
+            exit 1
+          fi

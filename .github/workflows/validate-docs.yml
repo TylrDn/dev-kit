@@ -1,0 +1,27 @@
+name: Validate Docs
+
+on:
+  pull_request:
+    paths:
+      - "agent/**"
+
+permissions:
+  contents: read
+
+jobs:
+  session-log-check:
+    name: Check session-log entry exists
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for today's session-log entry
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          MATCHES=$(find session-log/ -name "${TODAY}-*.md" 2>/dev/null | wc -l)
+          if [[ "$MATCHES" -gt 0 ]]; then
+            echo "✓ session-log entry found for $TODAY"
+          else
+            echo "::warning::No session-log entry found for $TODAY (session-log/${TODAY}-*.md)."
+            echo "Per agent protocol, sessions modifying agent/ should log their actions in session-log/."
+          fi

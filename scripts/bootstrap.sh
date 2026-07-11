@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # bootstrap.sh — Sets up Tyler's dev environment from scratch
 # Run: bash scripts/bootstrap.sh
 
-set -e
+set -euo pipefail
 echo "🛠 Starting dev-kit bootstrap..."
 
 # ── Homebrew ──────────────────────────────────────────────────────────────────
@@ -36,7 +36,7 @@ for file in .zshrc .gitconfig .gitignore_global; do
     echo "  Backing up existing $dest → $dest.bak"
     mv "$dest" "$dest.bak"
   fi
-  ln -sf "$DOTFILES_DIR/$file" "$dest"
+  ln -sf "$src" "$dest"
   echo "  Linked $file"
 done
 

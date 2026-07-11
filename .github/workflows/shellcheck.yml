@@ -1,0 +1,27 @@
+name: ShellCheck
+
+on:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "git/hooks/**"
+      - ".github/workflows/shellcheck.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    name: Lint shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck on scripts/
+        run: shellcheck scripts/*.sh
+
+      - name: Run shellcheck on git hooks
+        run: shellcheck git/hooks/*
