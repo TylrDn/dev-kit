@@ -30,7 +30,7 @@ DOTFILES_DIR="$(cd "$(dirname "$0")/../dotfiles" && pwd)"
 echo "→ Symlinking dotfiles from $DOTFILES_DIR..."
 
 for file in .zshrc .gitconfig .gitignore_global; do
-  src="$DOTFILES_DIRS/$file"
+  src="$DOTFILES_DIR/$file"
   dest="$HOME/$file"
   if [ -f "$dest" ] && [ ! -L "$dest" ]; then
     echo "  Backing up existing $dest → $dest.bak"

@@ -1,4 +1,5 @@
 # Commit Conventions
+<!-- last_reviewed: 2026-07-11 -->
 
 > All commits across TylrDn repos follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
